@@ -24,6 +24,7 @@ class Grid {
         this.points[this.points.length - 1][this.points[this.points.length - 1].length - 1].end = true;
         this.start = this.points[0][0];
         this.end = this.points[this.points.length - 1][this.points[this.points.length - 1].length - 1];
+        this.start.setIcon("img/start.png");
 
         if (this.drawing) {
             this.root.addEventListener('mousedown', (e) => {

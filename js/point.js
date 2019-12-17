@@ -63,4 +63,12 @@ class Cell {
     setColour(color) {
         this.point.style.backgroundColor = color;
     }
+
+    setIcon(path) {
+        this.point.style.backgroundImage = `url("${path}")`;
+    }
+
+    removeIcon(color) {
+        this.point.style.background = color;
+    }
 }

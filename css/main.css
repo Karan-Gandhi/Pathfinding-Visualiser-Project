@@ -22,4 +22,5 @@ div#root.root {
 
 div {
     transition: 0.4s;
+    background-size: cover;
 }

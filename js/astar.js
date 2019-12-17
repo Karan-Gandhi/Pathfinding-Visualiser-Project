@@ -1,6 +1,6 @@
 "use strict";
 
-function astar(grid, start, end) {
+function astar(start, end) {
     var openset = [start];
     var closedset = [];
     var current = null;
@@ -24,7 +24,6 @@ function astar(grid, start, end) {
                 drawing = false;
                 console.log(current);
                 retracePath();
-
                 return;
             }
 
@@ -59,7 +58,7 @@ function astar(grid, start, end) {
                 closedset[i].setColour("blue");
             }
 
-            current.setColour("green");
+            // current.setColour("green");
             start.setColour("violet");
         }
 
@@ -79,17 +78,17 @@ function astar(grid, start, end) {
                 clearInterval(int);
                 return;
             }
+            if (i > 0) {
+                fpath[i - 1].removeIcon("yellow");
+            }
             fpath[i].setColour("yellow");
+            fpath[i].setIcon("img/start.png");
             i++;
         }, 100);
-
-        // for (var i = 0; i < fpath.length; i++) {
-        //     fpath[i].setColour("yellow");
-        // }
     }
 
     function heruistic(current, end) {
-        return Math.abs(current.x - end.x) + Math.abs(current.y - end.y);
+        // return Math.abs(current.x - end.x) + Math.abs(current.y - end.y);
         return Math.sqrt(((current.x - end.x) * (current.x - end.x)) + ((current.y - end.y) * (current.y - end.y)))
     }
 }

@@ -8,5 +8,5 @@ window.onload = () => {
 
 function oc() {
     grid.addPointN();
-    astar(grid, grid.start, grid.end);
+    astar(grid.start, grid.end);
 }
