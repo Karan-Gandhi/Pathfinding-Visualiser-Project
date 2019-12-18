@@ -23,16 +23,25 @@ class Cell {
         this.point.style.width = (h) + "px";
         this.point.id = "col";
 
-        if (obstacle) {
+        this.point.obj = this;
+
+        // if (Math.random() < 0.2) {
+        //     console.log("ds")
+        //     this.obstacle = true;
+        // }
+
+        // setInterval(() => {
+        if (this.obstacle) {
             this.point.classList.toggle('obstacle');
         }
+        // }, 1000);
 
-        this.point.addEventListener('click', (e) => {
-            e.target.classList.toggle('obstacle');
-            if (!this.obstacle) {
-                this.obstacle = true;
-            }
-        });
+        // this.point.addEventListener('click', (e) => {
+        //     e.target.classList.toggle('obstacle');
+        //     if (!this.obstacle) {
+        //         this.obstacle = true;
+        //     }
+        // });
 
         this.root.append(this.point);
     }
@@ -70,5 +79,10 @@ class Cell {
 
     removeIcon(color) {
         this.point.style.background = color;
+    }
+
+    setObstacle() {
+        this.obstacle = true;
+        this.point.classList.toggle('obstacle');
     }
 }

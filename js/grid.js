@@ -20,12 +20,15 @@ class Grid {
             }
             this.root.append(row);
         }
-        this.points[0][0].start = true;
-        this.points[this.points.length - 1][this.points[this.points.length - 1].length - 1].end = true;
-        this.start = this.points[0][0];
-        this.end = this.points[this.points.length - 1][this.points[this.points.length - 1].length - 1];
+        // this.points[0][0].start = true;
+        // this.points[this.points.length - 1][this.points[this.points.length - 1].length - 1].end = true;
+        this.start = this.points[10][10];
+        this.end = this.points[10][this.points[10].length - 10];
         this.start.setIcon("img/start.png");
+        this.start.obstacle = false;
+        this.end.obstacle = false;
 
+        // For drawing walls
         if (this.drawing) {
             this.root.addEventListener('mousedown', (e) => {
                 e.preventDefault();
@@ -44,10 +47,20 @@ class Grid {
                     }
                 }
             });
+
+            for (var i = 0; i < this.points.length; i++) {
+                for (var x = 0; x < this.points[i].length; x++) {
+                    this.points[i][x].point.addEventListener('click', this.setAsObstacle);
+                }
+            }
         }
 
         this.root.style.width = this.w + "px";
         this.root.style.height = this.h + "px";
+    }
+
+    setAsObstacle(e) {
+        e.target.obj.setObstacle();
     }
 
     addPointN() {
@@ -56,9 +69,5 @@ class Grid {
                 this.points[i][x].addNeighbours(this);
             }
         }
-    }
-
-    setAsObstacle(e) {
-        e.target.classList.toggle('obstacle');
     }
 }

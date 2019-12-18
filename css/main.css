@@ -22,5 +22,7 @@ div#root.root {
 
 div {
     transition: 0.4s;
-    background-size: cover;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
 }

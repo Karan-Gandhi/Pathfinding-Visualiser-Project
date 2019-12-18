@@ -6,6 +6,7 @@ function astar(start, end) {
     var current = null;
     var fpath = [];
     var drawing = true;
+    var time = 1;
 
     var interval = setInterval(async () => {
         if (openset.length > 0) {
@@ -18,12 +19,11 @@ function astar(start, end) {
             current = openset[index];
 
             if (current === end) {
-                // await retracePath();
                 console.log("done");
                 clearInterval(interval);
                 drawing = false;
-                console.log(current);
                 retracePath();
+                noSol = false;
                 return;
             }
 
@@ -47,6 +47,10 @@ function astar(start, end) {
                 }
 
             }
+        } else {
+            console.log("no solution");
+            clearInterval(interval);
+            return;
         }
 
         if (drawing) {
@@ -58,15 +62,17 @@ function astar(start, end) {
                 closedset[i].setColour("blue");
             }
 
-            // current.setColour("green");
-            start.setColour("violet");
+            // current.setColour("yellow");
         }
 
-    }, 1);
+    }, time);
+
+
 
     function retracePath() {
         var temp = current;
         fpath.push(temp);
+
         while (temp.previous != undefined) {
             fpath.unshift(temp.previous);
             temp = temp.previous;
