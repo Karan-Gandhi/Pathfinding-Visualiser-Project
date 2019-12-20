@@ -25,24 +25,9 @@ class Cell {
         this.point.id = "col";
 
         this.point.obj = this;
-
-        // if (Math.random() < 0.2) {
-        //     console.log("ds")
-        //     this.obstacle = true;
-        // }
-
-        // setInterval(() => {
         if (this.obstacle) {
             this.point.classList.toggle('obstacle');
         }
-        // }, 1000);
-
-        // this.point.addEventListener('click', (e) => {
-        //     e.target.classList.toggle('obstacle');
-        //     if (!this.obstacle) {
-        //         this.obstacle = true;
-        //     }
-        // });
 
         this.root.append(this.point);
     }
