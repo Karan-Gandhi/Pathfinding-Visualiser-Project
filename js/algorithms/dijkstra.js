@@ -5,12 +5,15 @@ function dijkstra(grid, start, end) {
     var Q = [];
     var time = 1;
     var current = undefined;
+    var wallsurround = false;
 
     for (var row of grid) {
         for (var cell of row) {
             cell.g = Infinity;
             cell.previous = undefined;
-            Q.push(cell);
+            if (!cell.obstacle) {
+                Q.push(cell);
+            }
             if (cell === start) {
                 cell.g = 0;
             }
@@ -25,23 +28,32 @@ function dijkstra(grid, start, end) {
                     index = i;
                 }
             }
+
             current = Q[index];
-            Q.splice(Q.indexOf(current), 1);
-            if (current === end) {
-                console.log("done");
-                clearInterval(interval);
-                retracePath();
-                return;
-            }
-            for (var i = 0; i < current.neighbors.length; i++) {
-                var neighbour = current.neighbors[i];
-                if (!neighbour.obstacle) {
-                    var tempG = current.g + 1;
-                    if (tempG < neighbour.g) {
-                        neighbour.g = tempG;
-                        neighbour.previous = current;
+
+            if (!current.obstacle && current.g !== Infinity) {
+                Q.splice(Q.indexOf(current), 1);
+                if (current === end) {
+                    console.log("done");
+                    clearInterval(interval);
+                    retracePath();
+                    return;
+                }
+                for (var i = 0; i < current.neighbors.length; i++) {
+                    var neighbour = current.neighbors[i];
+                    if (!neighbour.obstacle) {
+                        var tempG = current.g + 1;
+                        if (tempG < neighbour.g) {
+                            neighbour.g = tempG;
+                            neighbour.previous = current;
+                        }
+                    } else {
+                        continue;
                     }
                 }
+            } else {
+                wallsurround = true;
+                Q.length = 0;
             }
         } else {
             console.log("no solution");
@@ -49,8 +61,10 @@ function dijkstra(grid, start, end) {
             return;
         }
 
-        current.setColour("blue");
-        end.setColour("yellow");
+        if (!wallsurround) {
+            current.setColour("blue");
+            end.setColour("yellow");
+        }
     }, time);
 
     function retracePath() {
