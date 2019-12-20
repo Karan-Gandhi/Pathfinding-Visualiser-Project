@@ -9,6 +9,7 @@ class Cell {
         this.start = start;
         this.end = end;
         this.previous = undefined;
+
         this.f = 0;
         this.h = 0;
         this.g = 0;
@@ -77,8 +78,8 @@ class Cell {
         this.point.style.backgroundImage = `url("${path}")`;
     }
 
-    removeIcon(color) {
-        this.point.style.background = color;
+    removeIcon() {
+        this.point.style.backgroundImage = "none";
     }
 
     setObstacle() {

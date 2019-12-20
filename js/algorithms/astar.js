@@ -6,7 +6,7 @@ function astar(start, end) {
     var current = null;
     var fpath = [];
     var drawing = true;
-    var time = 1;
+    var time = 50;
 
     var interval = setInterval(async () => {
         if (openset.length > 0) {
@@ -23,7 +23,6 @@ function astar(start, end) {
                 clearInterval(interval);
                 drawing = false;
                 retracePath();
-                noSol = false;
                 return;
             }
 
@@ -62,7 +61,7 @@ function astar(start, end) {
                 closedset[i].setColour("blue");
             }
 
-            // current.setColour("yellow");
+            end.setColour("yellow");
         }
 
     }, time);
@@ -85,7 +84,7 @@ function astar(start, end) {
                 return;
             }
             if (i > 0) {
-                fpath[i - 1].removeIcon("yellow");
+                fpath[i - 1].removeIcon();
             }
             fpath[i].setColour("yellow");
             fpath[i].setIcon("img/start.png");
@@ -94,7 +93,7 @@ function astar(start, end) {
     }
 
     function heruistic(current, end) {
-        // return Math.abs(current.x - end.x) + Math.abs(current.y - end.y);
-        return Math.sqrt(((current.x - end.x) * (current.x - end.x)) + ((current.y - end.y) * (current.y - end.y)))
+        return Math.abs(current.x - end.x) + Math.abs(current.y - end.y);
+        // return Math.sqrt(((current.x - end.x) * (current.x - end.x)) + ((current.y - end.y) * (current.y - end.y)))
     }
 }

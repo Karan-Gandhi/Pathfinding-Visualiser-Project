@@ -27,6 +27,7 @@ class Grid {
         this.start.setIcon("img/start.png");
         this.start.obstacle = false;
         this.end.obstacle = false;
+        this.end.setColour("yellow")
 
         // For drawing walls
         if (this.drawing) {
