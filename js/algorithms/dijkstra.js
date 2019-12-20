@@ -54,6 +54,7 @@ function dijkstra(grid, start, end) {
             } else {
                 wallsurround = true;
                 Q.length = 0;
+                //
             }
         } else {
             console.log("no solution");
