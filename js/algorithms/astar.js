@@ -54,11 +54,11 @@ function astar(start, end) {
 
         if (drawing) {
             for (var i = 0; i < openset.length; i++) {
-                openset[i].setColour("red");
+                openset[i].setColour("#f44336");
             }
 
             for (var i = 0; i < closedset.length; i++) {
-                closedset[i].setColour("blue");
+                closedset[i].setColour("#3f51b5");
             }
 
             end.setColour("yellow");
@@ -86,7 +86,7 @@ function astar(start, end) {
             if (i > 0) {
                 fpath[i - 1].removeIcon();
             }
-            fpath[i].setColour("yellow");
+            fpath[i].setColour("#ffeb3b");
             fpath[i].setIcon("img/start.png");
             i++;
         }, 100);

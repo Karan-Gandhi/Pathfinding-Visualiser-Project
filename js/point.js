@@ -57,6 +57,7 @@ class Cell {
 
     setColour(color) {
         this.point.style.backgroundColor = color;
+        this.point.style.border = "none";
     }
 
     setIcon(path) {

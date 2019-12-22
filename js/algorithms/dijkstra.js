@@ -62,7 +62,7 @@ function dijkstra(grid, start, end) {
         }
 
         if (!wallsurround) {
-            current.setColour("blue");
+            current.setColour("#3f51b5");
             end.setColour("yellow");
         }
     }, time);
@@ -86,7 +86,7 @@ function dijkstra(grid, start, end) {
             if (i > 0) {
                 fpath[i - 1].removeIcon();
             }
-            fpath[i].setColour("yellow");
+            fpath[i].setColour("#ffeb3b");
             fpath[i].setIcon("img/start.png");
             i++;
         }, 100);
