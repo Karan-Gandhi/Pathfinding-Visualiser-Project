@@ -1,9 +1,9 @@
 "use strict";
 
 function dijkstra(grid, start, end) {
-    grid = grid.points;
+    grid = grid.nodes;
     var Q = [];
-    var time = 1;
+    var time = 50;
     var current = undefined;
     var wallsurround = false;
 
