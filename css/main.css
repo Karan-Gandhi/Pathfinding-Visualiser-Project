@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     overflow: hidden;
 }
@@ -20,7 +21,7 @@ div#root.root {
 }
 
 div {
-    transition: 0.4s;
+    /* transition: 0.4s; */
     background-size: 15px;
     background-repeat: no-repeat;
     background-position: center;

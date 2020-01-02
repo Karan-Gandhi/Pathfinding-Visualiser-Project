@@ -47,18 +47,18 @@ class Node {
         this.mwalls = [];
         this.visited = false;
 
-        this.node = document.createElement('div');
+        this.node = document.createElement("div");
         this.node.style.position = "absolute";
-        this.node.style.left = (x * w) + "px";
-        this.node.style.top = (y * h) + "px";
-        this.node.style.height = (h) + "px";
-        this.node.style.width = (h) + "px";
+        this.node.style.left = x * w + "px";
+        this.node.style.top = y * h + "px";
+        this.node.style.height = h + "px";
+        this.node.style.width = h + "px";
         this.node.id = "col";
         this.node.pgrid = grid;
 
         this.node.obj = this;
         if (this.obstacle) {
-            this.node.classList.toggle('obstacle');
+            this.node.classList.toggle("obstacle");
         }
 
         this.root.append(this.node);
@@ -117,7 +117,7 @@ class Node {
     }
 
     /**
-     * chreck the neighbours and return a random one 
+     * chreck the neighbours and return a random one
      *
      * @param {Grid} grid
      * @returns {Node}
@@ -154,7 +154,7 @@ class Node {
     }
 
     /**
-     * sets the colour of the current cell 
+     * sets the colour of the current cell
      *
      * @param {String} color
      * @memberof Node
@@ -184,12 +184,12 @@ class Node {
         } else {
             this.obstacle = false;
         }
-        this.node.classList.toggle('obstacle');
+        this.node.classList.toggle("obstacle");
     }
 
     animate() {
         this.node.style.transform = "scale(0.1)";
-        setTimeout(() => this.node.style.transform = "scale(1)", 400);
+        setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
         // var i = 0;
         // var interval = setInterval(() => {
         //     if (i === 1) clearInterval(interval);
@@ -206,6 +206,10 @@ class Node {
     removeWall() {
         this.obstacle = false;
         this.node.classList.remove("obstacle");
+    }
+
+    rotate(deg) {
+        this.node.style.transform = `rotate(${deg}deg)`;
     }
 
     unvisitedNeighbours(grid) {

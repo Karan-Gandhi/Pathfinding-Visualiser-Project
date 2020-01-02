@@ -11,11 +11,21 @@ class Grid {
         this.nodes = [];
 
         for (var i = 0; i < rows; i++) {
-            var row = document.createElement('div');
+            var row = document.createElement("div");
             row.id = "row";
             this.nodes[i] = [];
             for (var x = 0; x < cols; x++) {
-                var node = new Node(x, i, pw, ph, false, row, false, false, this);
+                var node = new Node(
+                    x,
+                    i,
+                    pw,
+                    ph,
+                    false,
+                    row,
+                    false,
+                    false,
+                    this
+                );
                 this.nodes[i].push(node);
             }
             this.root.append(row);
@@ -29,31 +39,40 @@ class Grid {
         this.start.setIcon("img/start.png");
         this.start.obstacle = false;
         this.end.obstacle = false;
-        this.end.setColour("yellow")
+        this.end.setColour("yellow");
 
         // For drawing walls
         if (this.drawing) {
-            this.root.addEventListener('mousedown', (e) => {
+            this.root.addEventListener("mousedown", (e) => {
                 e.preventDefault();
                 for (var i = 0; i < this.nodes.length; i++) {
                     for (var x = 0; x < this.nodes[i].length; x++) {
-                        this.nodes[i][x].node.addEventListener('mouseover', this.setAsObstacle);
+                        this.nodes[i][x].node.addEventListener(
+                            "mouseout",
+                            this.setAsObstacle
+                        );
                     }
                 }
             });
 
-            this.root.addEventListener('mouseup', (e) => {
+            this.root.addEventListener("mouseup", (e) => {
                 e.preventDefault();
                 for (var i = 0; i < this.nodes.length; i++) {
                     for (var x = 0; x < this.nodes[i].length; x++) {
-                        this.nodes[i][x].node.removeEventListener('mouseover', this.setAsObstacle);
+                        this.nodes[i][x].node.removeEventListener(
+                            "mouseout",
+                            this.setAsObstacle
+                        );
                     }
                 }
             });
 
             for (var i = 0; i < this.nodes.length; i++) {
                 for (var x = 0; x < this.nodes[i].length; x++) {
-                    this.nodes[i][x].node.addEventListener('click', this.setAsObstacle);
+                    this.nodes[i][x].node.addEventListener(
+                        "click",
+                        this.setAsObstacle
+                    );
                 }
             }
         }
@@ -67,17 +86,6 @@ class Grid {
         if (!e.target.obj.start && !e.target.obj.end) {
             e.target.obj.setObstacle();
             e.target.obj.animate();
-        } else if (e.target.obj.start) {
-            // // this = this.pgrid;
-
-            // for (var i = 0; i < this.pgrid.nodes.length; i++) {
-            //     for (var x = 0; x < this.pgrid.nodes[i].length; x++) {
-            //         this.pgrid.nodes[i][x].node.removeEventListener('mouseout', this.setAsObstacle);
-            //     }
-            // }
-            // setInterval(() => {
-            //     console.log(e.clientX, e.clientY);
-            // }, 1000);
         }
     }
 

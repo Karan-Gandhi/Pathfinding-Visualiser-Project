@@ -1,11 +1,17 @@
 var grid;
-var nodew = 100;
+var nodew = 30;
 
 window.onload = () => {
-    grid = new Grid(Math.floor(window.innerHeight / nodew) /*- 6*/, Math.floor(window.innerWidth / nodew), document.getElementById('root'), nodew, nodew);
+    grid = new Grid(
+        Math.floor(window.innerHeight / nodew) - 6,
+        Math.floor(window.innerWidth / nodew),
+        document.getElementById("root"),
+        nodew,
+        nodew
+    );
     // dijkstra(grid, grid.start, grid.end);
     // astar(grid, grid.start, grid.end);
-}
+};
 
 function oc() {
     grid.addNodeN();

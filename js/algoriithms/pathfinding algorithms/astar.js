@@ -22,7 +22,7 @@ function astar(start, end) {
                 console.log("done");
                 clearInterval(interval);
                 drawing = false;
-                retracePath();
+                retracePath(current);
                 return;
             }
 
@@ -44,7 +44,6 @@ function astar(start, end) {
                         }
                     }
                 }
-
             }
         } else {
             console.log("no solution");
@@ -63,34 +62,7 @@ function astar(start, end) {
 
             end.setColour("yellow");
         }
-
     }, time);
-
-
-
-    function retracePath() {
-        var temp = current;
-        fpath.push(temp);
-
-        while (temp.previous != undefined) {
-            fpath.unshift(temp.previous);
-            temp = temp.previous;
-        }
-
-        var i = 0
-        var int = setInterval(() => {
-            if (i === fpath.length) {
-                clearInterval(int);
-                return;
-            }
-            if (i > 0) {
-                fpath[i - 1].removeIcon();
-            }
-            fpath[i].setColour("#ffeb3b");
-            fpath[i].setIcon("img/start.png");
-            i++;
-        }, 100);
-    }
 
     function heruistic(current, end) {
         return Math.abs(current.x - end.x) + Math.abs(current.y - end.y);

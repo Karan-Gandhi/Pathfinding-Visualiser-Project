@@ -36,7 +36,7 @@ function dijkstra(grid, start, end) {
                 if (current === end) {
                     console.log("done");
                     clearInterval(interval);
-                    retracePath();
+                    retracePath(current);
                     return;
                 }
                 for (var i = 0; i < current.neighbors.length; i++) {
@@ -66,29 +66,4 @@ function dijkstra(grid, start, end) {
             end.setColour("yellow");
         }
     }, time);
-
-    function retracePath() {
-        var temp = current;
-        var fpath = [];
-        fpath.push(temp);
-
-        while (temp.previous != undefined) {
-            fpath.unshift(temp.previous);
-            temp = temp.previous;
-        }
-
-        var i = 0
-        var int = setInterval(() => {
-            if (i === fpath.length) {
-                clearInterval(int);
-                return;
-            }
-            if (i > 0) {
-                fpath[i - 1].removeIcon();
-            }
-            fpath[i].setColour("#ffeb3b");
-            fpath[i].setIcon("img/start.png");
-            i++;
-        }, 100);
-    }
 }
