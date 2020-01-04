@@ -1,10 +1,9 @@
-"use strict";
+("use strict");
 
 function astar(start, end) {
     var openset = [start];
     var closedset = [];
     var current = null;
-    var fpath = [];
     var drawing = true;
     var time = 50;
 
@@ -22,7 +21,7 @@ function astar(start, end) {
                 console.log("done");
                 clearInterval(interval);
                 drawing = false;
-                retracePath(current);
+                retracePath(current, 100);
                 return;
             }
 

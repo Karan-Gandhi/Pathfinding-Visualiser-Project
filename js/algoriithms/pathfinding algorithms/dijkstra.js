@@ -1,4 +1,4 @@
-"use strict";
+("use strict");
 
 function dijkstra(grid, start, end) {
     grid = grid.nodes;
@@ -36,7 +36,7 @@ function dijkstra(grid, start, end) {
                 if (current === end) {
                     console.log("done");
                     clearInterval(interval);
-                    retracePath(current);
+                    retracePath(current, 100);
                     return;
                 }
                 for (var i = 0; i < current.neighbors.length; i++) {
