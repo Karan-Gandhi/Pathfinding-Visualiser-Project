@@ -11,12 +11,12 @@
  * @param {Node} end
  */
 function astar(start, end) {
-    var openset = [start];
-    var closedset = [];
-    var current = null;
-    var animationTime = 50;
+    let openset = [start];
+    let closedset = [];
+    let current = null;
+    const animationTime = 50;
     // animation for the algorithm
-    var interval = setInterval(async () => {
+    const interval = setInterval(async () => {
         if (openset.length > 0) {
             // get the index having the lowest f score
             var index = 0;
@@ -36,7 +36,7 @@ function astar(start, end) {
             closedset.push(current);
             // loop through the neighbours of the current cell
             for (var i = 0; i < current.neighbors.length; i++) {
-                var neighbor = current.neighbors[i];
+                const neighbor = current.neighbors[i];
                 // check if the neighbour is already visited and if it is a obstacle
                 if (!closedset.includes(neighbor) && !neighbor.obstacle) {
                     // set the temperory g value to the current g + the distance between the current node an the next node
