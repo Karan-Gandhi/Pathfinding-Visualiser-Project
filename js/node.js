@@ -33,20 +33,14 @@ class Node {
         this.w = w;
         this.obstacle = false;
         this.root = root;
-        this.start = start;
-        this.end = end;
         this.previous = undefined;
-
         this.f = 0;
         this.h = 0;
         this.g = 0;
-
         this.neighbors = [];
-
         this.mneighbours = [];
         this.mwalls = [];
         this.visited = false;
-
         this.node = document.createElement("div");
         this.node.style.position = "absolute";
         this.node.style.left = x * w + "px";
@@ -55,13 +49,13 @@ class Node {
         this.node.style.width = h + "px";
         this.node.id = "col";
         this.node.pgrid = grid;
-
         this.node.obj = this;
         if (this.obstacle) {
             this.node.classList.toggle("obstacle");
         }
-
         this.root.append(this.node);
+        this.start = false;
+        this.end = false;
     }
 
     /**
@@ -179,17 +173,19 @@ class Node {
     }
 
     setObstacle() {
-        if (!this.obstacle) {
-            this.obstacle = true;
-        } else {
-            this.obstacle = false;
+        if (this.node.pgrid.drawing && !this.start && !this.end) {
+            if (!this.obstacle) {
+                this.obstacle = true;
+            } else {
+                this.obstacle = false;
+            }
+            this.node.classList.toggle("obstacle");
         }
-        this.node.classList.toggle("obstacle");
     }
 
     animate() {
-        this.node.style.transform = "scale(0.1)";
-        setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
+        // this.node.style.transform = "scale(0.1)";
+        // setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
         // var i = 0;
         // var interval = setInterval(() => {
         //     if (i === 1) clearInterval(interval);
