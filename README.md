@@ -1,6 +1,6 @@
 # 4-CC-Pathfinding-Algorithms
 
-This is a Project which will visualize different PathFinding Algorithms.
+This is a Project which will visualize different PathFinding Algorithms. This pproject is available on
 
 ## Meet the various algorithms
 ### Astar
