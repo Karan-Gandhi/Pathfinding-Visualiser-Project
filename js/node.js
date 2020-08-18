@@ -15,6 +15,7 @@
 class Node {
     /**
      * Creates an instance of Node.
+     *
      * @param {number} x
      * @param {number} y
      * @param {number} h
@@ -65,11 +66,11 @@ class Node {
      * @memberof Node
      */
     addNeighbours(grid) {
-        var y = this.x;
-        var x = this.y;
-        var g = grid.nodes;
-        var cols = grid.cols;
-        var rows = grid.rows;
+        let y = this.x;
+        let x = this.y;
+        let g = grid.nodes;
+        let cols = grid.cols;
+        let rows = grid.rows;
 
         this.neighbors.length = 0;
 
@@ -88,11 +89,11 @@ class Node {
     }
 
     addMWalls(grid) {
-        var y = this.x;
-        var x = this.y;
-        var g = grid.nodes;
-        var cols = grid.cols;
-        var rows = grid.rows;
+        let y = this.x;
+        let x = this.y;
+        let g = grid.nodes;
+        let cols = grid.cols;
+        let rows = grid.rows;
 
         this.mwalls.length = 0;
 
@@ -118,11 +119,11 @@ class Node {
      * @memberof Node
      */
     checkNeighbours(grid) {
-        var y = this.x;
-        var x = this.y;
-        var g = grid.nodes;
-        var cols = grid.cols;
-        var rows = grid.rows;
+        let y = this.x;
+        let x = this.y;
+        let g = grid.nodes;
+        let cols = grid.cols;
+        let rows = grid.rows;
 
         this.mneighbours.length = 0;
 
@@ -140,7 +141,7 @@ class Node {
         }
 
         if (this.mneighbours.length > 0) {
-            var r = Math.ceil(Math.random() * this.mneighbours.length) - 1;
+            let r = Math.ceil(Math.random() * this.mneighbours.length) - 1;
             return this.mneighbours[r];
         } else {
             return undefined;
@@ -156,6 +157,11 @@ class Node {
     setColour(color) {
         this.node.style.backgroundColor = color;
         this.node.style.border = "none";
+    }
+
+    removeColor() {
+        this.node.style.backgroundColor = "";
+        this.node.style.border = "";
     }
 
     /**
@@ -186,8 +192,8 @@ class Node {
     animate() {
         // this.node.style.transform = "scale(0.1)";
         // setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
-        // var i = 0;
-        // var interval = setInterval(() => {
+        // let i = 0;
+        // let interval = setInterval(() => {
         //     if (i === 1) clearInterval(interval);
         //     this.node.style.transform = `scale(${i})`;
         //     i += 0.1;
@@ -209,12 +215,12 @@ class Node {
     }
 
     unvisitedNeighbours(grid) {
-        var y = this.x;
-        var x = this.y;
-        var g = grid.nodes;
-        var cols = grid.cols;
-        var rows = grid.rows;
-        var unvisitedn = true;
+        let y = this.x;
+        let x = this.y;
+        let g = grid.nodes;
+        let cols = grid.cols;
+        let rows = grid.rows;
+        let unvisitedn = true;
 
         // if (!(x - 2 >= 0 && !g[x - 2][y].visited)) {
         //     unvisitedn = false;
@@ -230,15 +236,11 @@ class Node {
         // }
 
         // return unvisitedn;
-        var w = x - 2 >= 0 && !g[x - 2][y].visited, // if it exists and is not visited then true
+        let w = x - 2 >= 0 && !g[x - 2][y].visited, // if it exists and is not visited then true
             e = x + 2 < rows && !g[x + 2][y].visited,
             n = y - 2 >= 0 && !g[x][y - 2].visited,
             s = y + 2 > cols && !g[x][y + 2].visited;
 
-        if (n && s && e && w) {
-            return true;
-        } else {
-            return false;
-        }
+        return n && s && e && w;
     }
 }

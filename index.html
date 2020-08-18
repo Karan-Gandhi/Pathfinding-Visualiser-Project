@@ -1,82 +1,89 @@
 <!--
 @author Karan Gandhi
 @email karangandhi.programming@gmail.com
-@create date 2019-12-27 15:42:53
-@modify date 2019-12-27 15:42:53
 @desc [description]
 -->
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Pathfinding</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Pathfinding</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ui.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/ContextMenu.css" />
 
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/ui.css'>
+        <script src="Material Components/Snackbar/snackbar.js"></script>
+        <script src="Material Components/ContextMenu/ContextMenu.js"></script>
+        <script src="js/algoriithms/pathfinding algorithms/retracePath.js"></script>
+        <script src="js/algoriithms/pathfinding algorithms/dijkstra.js"></script>
+        <script src="js/algoriithms/pathfinding algorithms/astar.js"></script>
+        <script src="js/algoriithms/maze generation algorithm/Randomized Prim algorithm.js"></script>
+        <script src="js/algoriithms/maze generation algorithm/Recursive division.js"></script>
+        <script src="js/node.js"></script>
+        <script src="js/grid.js"></script>
+        <script src="js/main.js"></script>
+    </head>
 
-    <script src='js/algoriithms/pathfinding algorithms/retracePath.js'></script>
-    <script src='js/algoriithms/pathfinding algorithms/dijkstra.js'></script>
-    <script src='js/algoriithms/pathfinding algorithms/astar.js'></script>
-    <script src='js/algoriithms/maze generation algorithm/Randomized Prim algorithm.js'></script>
-    <script src='js/algoriithms/maze generation algorithm/Recursive division.js'></script>
-    <script src='js/node.js'></script>
-    <script src='js/grid.js'></script>
-    <script src='js/main.js'></script>
-</head>
-
-<body>
-    <div class="headder-surface">
-        <div class="headder-title-container">
-            <div class="headder-text" draggable="true">Pathfinding Algorithms</div>
-            <div class="headder-options">
-                <div class="subtitle">Project By Karan Gandhi</div>
+    <body>
+        <nav id="context-menu" class="context-menu">
+            <div class="context-menu-items">
+                <div class="cm-item">Mark as wall</div>
+                <div class="cm-item">Move start here</div>
+                <div class="cm-item">Move end here</div>
+            </div>
+        </nav>
+        <div class="headder-surface">
+            <div class="headder-title-container">
+                <div class="headder-text" draggable="true">Pathfinding Algorithms</div>
+                <div class="headder-options">
+                    <div class="subtitle">Project By Karan Gandhi</div>
+                </div>
+            </div>
+            <div class="options-container">
+                <div class="dropdown-surface surface">
+                    <div class="dropdown-button">
+                        <div class="dropdown-text" id="algo">Algorithms</div>
+                        <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png" class="dropdown-image" />
+                    </div>
+                    <div class="dropdown-list">
+                        <div class="dropdown-list-item">A * Algorithm</div>
+                        <div class="dropdown-list-item">Dijkstra's Algorithm</div>
+                    </div>
+                </div>
+                <div class="dropdown-surface surface">
+                    <div class="dropdown-button">
+                        <div class="dropdown-text" id="time">Fast</div>
+                        <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png" class="dropdown-image" />
+                    </div>
+                    <div class="dropdown-list">
+                        <div class="dropdown-list-item">Slow</div>
+                        <div class="dropdown-list-item">Medium</div>
+                        <div class="dropdown-list-item">Fast</div>
+                    </div>
+                </div>
+                <div class="dropdown-surface surface">
+                    <div class="dropdown-button">
+                        <div class="dropdown-text" id="maze">Maze Algorithm</div>
+                        <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png" class="dropdown-image" />
+                    </div>
+                    <div class="dropdown-list">
+                        <div class="dropdown-list-item">Depth First</div>
+                        <div class="dropdown-list-item">Recursive</div>
+                    </div>
+                </div>
+                <div class="button-surface surface" id="start">
+                    <div class="button-text">Start</div>
+                </div>
+                <div class="button-surface surface" id="mazeBuild">
+                    <div class="button-text">Build Maze</div>
+                </div>
             </div>
         </div>
-        <div class="options-container">
-            <div class="dropdown-surface">
-                <div class="dropdown-button" onclick="ds()">
-                    <div class="dropdown-text">Algorithms</div>
-                    <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png"
-                        class="dropdown-image"></img>
-                </div>
-                <div class="dropdown-list">
-                    <div class="dropdown-list-item">A * Algorithm</div>
-                    <div class="dropdown-list-item">Dijkstra's Algorithm</div>
-                </div>
-            </div>
-            <div class="dropdown-surface">
-                <div class="dropdown-button" onclick="oc()">
-                    <div class="dropdown-text">Time</div>
-                    <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png"
-                        class="dropdown-image"></img>
-                </div>
-                <div class="dropdown-list">
-                    <div class="dropdown-list-item">Slow</div>
-                    <div class="dropdown-list-item">Medium</div>
-                    <div class="dropdown-list-item">Fast</div>
-                </div>
-            </div>
-            <div class="dropdown-surface">
-                <div class="dropdown-button" onclick="ds()">
-                    <div class="dropdown-text">Maze Algorithm</div>
-                    <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png"
-                        class="dropdown-image"></img>
-                </div>
-                <div class="dropdown-list">
-                    <div class="dropdown-list-item">Depth First</div>
-                    <div class="dropdown-list-item">Recursive</div>
-                </div>
-            </div>
+        <div class="container">
+            <div class="root" id="root"></div>
         </div>
-    </div>
-    <div class="container">
-        <div class="root" id="root"></div>
-    </div>
-    <!-- <button onclick="oc()">a*</button>
-    <button onclick="ds()">dijkstra</button> -->
-</body>
-
+    </body>
 </html>

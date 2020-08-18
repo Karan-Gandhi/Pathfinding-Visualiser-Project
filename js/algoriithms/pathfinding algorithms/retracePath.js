@@ -20,24 +20,49 @@ function retracePath(lastNode, animationTime) {
         temp = temp.previous;
     }
     // Animate the path
-    let i = 0;
-    const interval = setInterval(() => {
-        // if there is no other node left
-        if (i === path.length) {
-            clearInterval(interval);
-            return;
+    if (animationTime !== 0) {
+        let i = 0;
+        const interval = setInterval(() => {
+            // if there is no other node left
+            if (i === path.length) {
+                clearInterval(interval);
+                return;
+            }
+            // change the direction of the node according to the next node
+            if (path[i + 1]) {
+                if (path[i + 1].x > path[i].x) path[i].rotate(0);
+                if (path[i + 1].x < path[i].x) path[i].rotate(180);
+                if (path[i + 1].y > path[i].y) path[i].rotate(90);
+                if (path[i + 1].y < path[i].y) path[i].rotate(-90);
+            }
+            // remove the icon of the previous node and set the icon of the current node
+            if (i > 0) path[i - 1].removeIcon();
+            path[i].setColour("#ffeb3b");
+            path[i].setIcon("img/start.png");
+            grid.completed();
+            i++;
+        }, animationTime);
+    } else {
+        let i = 0;
+        while(true) {
+            // if there is no other node left
+            if (i === path.length) {
+                return;
+            }
+            // change the direction of the node according to the next node
+            if (path[i + 1]) {
+                if (path[i + 1].x > path[i].x) path[i].rotate(0);
+                if (path[i + 1].x < path[i].x) path[i].rotate(180);
+                if (path[i + 1].y > path[i].y) path[i].rotate(90);
+                if (path[i + 1].y < path[i].y) path[i].rotate(-90);
+            }
+            // remove the icon of the previous node and set the icon of the current node
+            if (i > 0) path[i - 1].removeIcon();
+            path[i].setColour("#ffeb3b");
+            path[i].setIcon("img/start.png");
+            i++;
+            grid.completed();
         }
-        // change the direction of the node according to the next node
-        if (path[i + 1]) {
-            if (path[i + 1].x > path[i].x) path[i].rotate(0);
-            if (path[i + 1].x < path[i].x) path[i].rotate(180);
-            if (path[i + 1].y > path[i].y) path[i].rotate(90);
-            if (path[i + 1].y < path[i].y) path[i].rotate(-90);
-        }
-        // remove the icon of the previous node and set the icon of the current node
-        if (i > 0) path[i - 1].removeIcon();
-        path[i].setColour("#ffeb3b");
-        path[i].setIcon("img/start.png");
-        i++;
-    }, animationTime);
+
+    }
 }
