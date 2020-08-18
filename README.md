@@ -1,6 +1,6 @@
-# 4-CC-Pathfinding-Algorithms
+# Pathfinding-Visualiser-Project
 
-This is a Project which will visualize different PathFinding Algorithms. This project is available on https://karan-gandhi.github.io/4-CC-Pathfinding-Algorithms/
+This is a Project which will visualize different PathFinding Algorithms. This project is available on https://karan-gandhi.github.io/Pathfinding-Visualiser-Project/
 
 ## Meet the various algorithms
 ### Astar
