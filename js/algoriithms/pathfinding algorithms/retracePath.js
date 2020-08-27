@@ -19,6 +19,7 @@ function retracePath(lastNode, animationTime) {
         path.unshift(temp.previous);
         temp = temp.previous;
     }
+        console.log(path);
     // Animate the path
     if (animationTime !== 0) {
         let i = 0;
@@ -45,6 +46,7 @@ function retracePath(lastNode, animationTime) {
     } else {
         let i = 0;
         while(true) {
+            console.log("ads");
             // if there is no other node left
             if (i === path.length) {
                 return;

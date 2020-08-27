@@ -2,14 +2,14 @@
 
 function dijkstra(start, end, t) {
     grid.setAlgo(dijkstra);
-    for (let node of grid.getAllNodes()) {
-        node.obj.removeColor(); 
-    }
+    grid.resetPath();
     let ngrid = grid.nodes;
     let Q = [];
     let time = t;
     let current = undefined;
     let wallsurround = false;
+
+    console.log(start, end);
 
     for (let row of ngrid) {
         for (let cell of row) {

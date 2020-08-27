@@ -54,6 +54,7 @@ class Node {
         if (this.obstacle) {
             this.node.classList.toggle("obstacle");
         }
+        // this.root.innerHTML = this.y;
         this.root.append(this.node);
         this.start = false;
         this.end = false;
@@ -156,6 +157,7 @@ class Node {
      */
     setColour(color) {
         this.node.style.backgroundColor = color;
+        // this.animate();
         this.node.style.border = "none";
     }
 
@@ -190,6 +192,12 @@ class Node {
     }
 
     animate() {
+        this.node.style.transition = "0s";
+        this.node.style.transform = "scale(0)";
+        setTimeout(() => {
+            this.node.style.transition = "0.4s";
+            this.node.style.transform = "scale(1)";            
+        }, 2);
         // this.node.style.transform = "scale(0.1)";
         // setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
         // let i = 0;
@@ -202,7 +210,13 @@ class Node {
 
     setWall() {
         this.obstacle = true;
+        this.node.style.transition = "0s";
+        this.node.style.transform = "scale(0)";
         this.node.classList.add("obstacle");
+        setTimeout(() => {
+            this.node.style.transition = "0.4s";
+            this.node.style.transform = "scale(1)";            
+        }, 5);
     }
 
     removeWall() {

@@ -1,137 +1,128 @@
 /**
  * @author Karan Gandhi
  * @email karangandhi.programming@gmail.com
- * @create date 2020-01-04 15:03:21
- * @modify date 2020-01-04 15:03:21
- * @desc [description]
  */
 
 "use strict";
 
-let orientation = "S";
-let wallstoanimate = [];
-let randomrow = 0;
-let randomcol = 0;
-let rowstart = 0;
-let rowend = 0;
-let colstart = 0;
-let colend = 0;
-let width = 0;
-let height = 0;
-let GRID = null;
-let surroundingwalls = true;
+let wallsToAnimate = [];
 
-function divide(
-    grid,
-    Width,
-    Height,
-    Rowstart,
-    Rowend,
-    Colstart,
-    Colend,
-    Surroundingwalls
-) {
-    orientation = getorientation(width, height);
-    rowstart = Rowstart;
-    rowend = Rowend;
-    colstart = Colstart;
-    colend = Colend;
-    width = Width;
-    height = Height;
-    GRID = grid;
-    surroundingwalls = Surroundingwalls;
+async function recursiveDivisionMaze(rowStart, rowEnd, colStart, colEnd, orientation, surroundingWalls, animationTime) {
+    if (rowEnd < rowStart || colEnd < colStart) return;
 
-    if (!surroundingwalls) {
-        for (let i = 0; i < width; i++) {
-            GRID.nodes[0][i].setWall();
+    let animate = false
+    if (!surroundingWalls) {
+        let rows = grid.rows;
+        let cols = grid.cols;
+
+        for (let i = 1; i < cols - 1; i++) {
+            wallsToAnimate.push(grid.nodes[0][i]);
+            // grid.nodes[0][i].setWall();
+            // await sleep(animationTime);
         }
-        for (let i = 0; i < width; i++) {
-            GRID.nodes[height - 1][i].setWall();
+
+        for (let i = 0; i < rows - 1; i++) {
+            wallsToAnimate.push(grid.nodes[i][0], grid.nodes[i][cols - 1]);
+            // grid.nodes[i][0].setWall();
+            // grid.nodes[i][cols - 1].setWall();
+            // await sleep(animationTime);
         }
-        for (let i = 0; i < height; i++) {
-            GRID.nodes[i][0].setWall();
+
+        for (let i = 0; i < cols; i++) {
+            wallsToAnimate.push(grid.nodes[rows - 1][i]);
+            // grid.nodes[rows - 1][i].setWall();
+            // await sleep(animationTime);
         }
-        for (let i = 0; i < height; i++) {
-            GRID.nodes[i][width - 1].setWall();
-        }
+        animate = true;
+        surroundingWalls = true;
     }
-}
-function next() {
-    if (orientation === "H") {
-        randomrow = getrandom(rowstart + 2, rowend - 2);
-        drawWalls(GRID, randomrow, colend, orientation);
-        if (randomrow + 2 < rowend) {
-            divide(
-                GRID,
-                width,
-                height - randomrow,
-                rowstart,
-                rowend,
-                randomcol,
-                colend,
-                true
-            );
+
+    if (orientation === "horizontal") {
+        let possibleRows = [];
+        for (let number = rowStart; number <= rowEnd; number += 2) possibleRows.push(number);
+        
+        let possibleCols = [];
+        for (let number = colStart - 1; number <= colEnd + 1; number += 2) possibleCols.push(number);
+
+        let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
+        let randomColIndex = Math.floor(Math.random() * possibleCols.length);
+        let currentRow = possibleRows[randomRowIndex];
+        let colRandom = possibleCols[randomColIndex];
+
+        for (let row of grid.nodes) {
+            for (let node of row) {
+                let r = node.y;
+                let c = node.x;
+                if (r === currentRow && c !== colRandom && c >= colStart - 1 && c <= colEnd + 1) {
+                    let currentHTMLNode = node.node;
+                    if (!node.start && !node.end) {
+                        wallsToAnimate.push(node);
+                        // node.setWall();
+                        // await sleep(animationTime);
+                    }
+                }
+            }
         }
-        if (randomrow - 2 > rowstart) {
-            divide(
-                GRID,
-                width,
-                randomrow,
-                rowstart,
-                rowend,
-                colstart,
-                randomcol,
-                true
-            );
+
+        if (currentRow - 2 - rowStart > colEnd - colStart) {
+            await recursiveDivisionMaze(rowStart, currentRow - 2, colStart, colEnd, orientation, surroundingWalls, animationTime);
+        } else {
+            await recursiveDivisionMaze(rowStart, currentRow - 2, colStart, colEnd, "vertical", surroundingWalls, animationTime);
+        }
+        
+        if (rowEnd - (currentRow + 2) > colEnd - colStart) {
+            await recursiveDivisionMaze(currentRow + 2, rowEnd, colStart, colEnd, orientation, surroundingWalls, animationTime);
+        } else {
+            await recursiveDivisionMaze(currentRow + 2, rowEnd, colStart, colEnd, "vertical", surroundingWalls, animationTime);
         }
     } else {
-        randomcol = getrandom(colstart - 2, colend + 2);
-        drawWalls(GRID, randomcol, rowend, orientation);
-        if (randomcol + 2 < colend) {
-            divide(
-                GRID,
-                width - randomcol,
-                height,
-                rowstart,
-                rowend,
-                randomcol,
-                colend,
-                true
-            );
+        let possibleCols = [];
+        for (let number = colStart; number <= colEnd; number += 2) {
+            possibleCols.push(number);
         }
-        if (randomcol - 2 > colstart) {
-            divide(
-                GRID,
-                randomcol,
-                height,
-                rowstart,
-                rowend,
-                colstart,
-                randomcol,
-                true
-            );
+        
+        let possibleRows = [];
+        for (let number = rowStart - 1; number <= rowEnd + 1; number += 2) {
+            possibleRows.push(number);
+        }
+        
+        let randomColIndex = Math.floor(Math.random() * possibleCols.length);
+        let randomRowIndex = Math.floor(Math.random() * possibleRows.length);
+        let currentCol = possibleCols[randomColIndex];
+        let rowRandom = possibleRows[randomRowIndex];
+        
+        for (let row of grid.nodes) {
+            for (let node of row) {
+                let r = node.y;
+                let c = node.x;
+                if (c === currentCol && r !== rowRandom && r >= rowStart - 1 && r <= rowEnd + 1) {
+                    let currentHTMLNode = node.node;
+                    if (!node.start && !node.end) {
+                        wallsToAnimate.push(node);
+                        // node.setWall();
+                        // await sleep(animationTime);
+                    }
+                }
+            }
+        }
+        
+        if (rowEnd - rowStart > currentCol - 2 - colStart) {
+            await recursiveDivisionMaze(rowStart, rowEnd, colStart, currentCol - 2, "horizontal", true, animationTime);
+        } else {
+            await recursiveDivisionMaze(rowStart, rowEnd, colStart, currentCol - 2, orientation, true, animationTime);
+        }
+        
+        if (rowEnd - rowStart > colEnd - (currentCol + 2)) {
+            await recursiveDivisionMaze(rowStart, rowEnd, currentCol + 2, colEnd, "horizontal", true, animationTime);
+        } else {
+            await recursiveDivisionMaze(rowStart, rowEnd, currentCol + 2, colEnd, orientation, true, animationTime);
         }
     }
-}
 
-function getrandom(a, b) {
-    return Math.floor(Math.random() * b + 1) - a;
-}
-
-function getorientation(w, h) {
-    return w > h ? "V" : "H";
-}
-
-function drawWalls(GRID, index, to, orientation) {
-    if (orientation === "V") {
-        for (let i = 1; i < to; i++) {
-            // GRID.nodes[i][index].setColour("red");
-            GRID.nodes[i][index].setWall();
-        }
-    } else if (orientation === "H") {
-        for (let i = 1; i < to; i++) {
-            // GRID.nodes[index][i].setColour("red");
-            GRID.nodes[index][i].setWall();
+    if (animate) {
+        for (let node of wallsToAnimate) {
+            node.setWall();
+            await sleep(animationTime);
         }
     }
 }

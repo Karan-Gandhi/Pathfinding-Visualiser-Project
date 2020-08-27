@@ -92,32 +92,6 @@ class Grid {
         }
     }
 
-    // when -> start mouse down
-    // neighbours -> add mouse enter and exit listener
-    // when -> start mouse up
-    // neighbours -> remove enter and exit listener
-    // 
-    // neighbours -> on enter: (recursive)
-    //     entered: then, remove listeners of the previous nodes
-    //     add mouse down listener:
-    //          neighbours -> add enter and exit listener: (recursive)
-    //     set start as current node
-    //     set start icon
-    //
-    // 
-    //
-    // when -> end mouse down
-    // neighbours -> add mouse enter and exit listener
-    // when -> end mouse up
-    // neighbours -> remove enter and exit listener
-    // 
-    // neighbours -> on enter: (recursive)
-    //     entered: then, remove listeners of the previous nodes
-    //     add mouse down listener:
-    //          neighbours -> add enter and exit listener: (recursive)
-    //     set end as current node
-    //     set end icon
-
     // Start node
     addStartDragEventListeners() {
         let grid = this;
@@ -158,7 +132,6 @@ class Grid {
         this.pgrid.drawing = true;
         for (let neighbour of this.pgrid.getAllNodes()) {
             neighbour.removeEventListener('mouseenter', this.pgrid.startNeighbourEnterListener);
-            neighbour.removeEventListener('mouseleave', this.pgrid.startNeighbourExitListener);
         }
     }
 
@@ -196,108 +169,25 @@ class Grid {
         this.pgrid.end = this.obj;
         this.pgrid.targets[1] = this.pgrid.end;
         this.pgrid.addEndDragEventListeners();
-        this.pgrid.currentAlgo(this.pgrid.end, this.pgrid.end, 0);
-        console.log("AS")
+        this.pgrid.currentAlgo(this.pgrid.start, this.pgrid.end, 0);
     }
 
     removeEndNeighboursEnterExitListener(e) {
         this.pgrid.drawing = true;
         for (let neighbour of this.pgrid.getAllNodes()) {
             neighbour.removeEventListener('mouseenter', this.pgrid.endNeighbourEnterListener);
-            neighbour.removeEventListener('mouseleave', this.pgrid.endNeighbourExitListener);
         }
     }
 
-    // // Start Node
-
-    // addStartDragEventListeners() {
-    //     this.start.node.addEventListener("mousedown", this.startNodeMouseDownEventFunction.bind(this));
-    //     this.start.node.addEventListener("mouseup", this.startNodeMouseUpEventFunction.bind(this));
-    // }
-
-    // startNodeMouseDownEventFunction() {
-    //     this.drawing = false;
-    //     for (let row of this.nodes) {
-    //         for (let node of row) {
-    //             this.addNodeEnterExitEventListener(node);
-    //         }
-    //     }
-    // }
-
-    // startNodeMouseUpEventFunction() {
-    //     this.drawing = true;
-    //     for (let row of this.nodes) {
-    //         for (let node of row) {
-    //             node.node.removeEventListener("mouseenter", this.boundMouseEnterEventFunctionStart);
-    //             node.node.removeEventListener("mouseleave", this.nodeMouseLeaveEventFunction);
-    //         }
-    //     }
-    //     this.addEventListeners();
-    //     this.drawing = true;
-    // }
-
-    // addNodeEnterExitEventListener(node) {
-    //     node.node.addEventListener("mouseenter", this.boundMouseEnterEventFunctionStart);
-    //     node.node.addEventListener("mouseleave", this.nodeMouseLeaveEventFunction);
-    // }
-
-    // nodeMouseEnterEventFunctionStart(e) {
-    //     e.target.obj.setIcon("img/start.png");
-    //     const new_element = this.start.node.cloneNode(true);
-    //     this.start.node.parentNode.replaceChild(new_element, this.start.node);
-    //     this.start.node = new_element;
-    //     this.start = e.target.obj;
-    //     this.addStartDragEventListeners();
-    //     this.currentAlgo(this.start, this.end, 0);
-    // }
-
-    // // End Node
-
-    // addEndDragEventListeners() {
-    //     this.end.node.addEventListener("mousedown", this.endNodeMouseDownEventFunction.bind(this));
-    //     this.end.node.addEventListener("mouseup", this.endNodeMouseUpEventFunction.bind(this));
-    // }
-
-    // endNodeMouseDownEventFunction() {
-    //     this.drawing = false;
-    //     for (let row of this.nodes) {
-    //         for (let node of row) {
-    //             this.addNodeEnterExitEventListenerEnd(node);
-    //         }
-    //     }
-    // }
-
-    // endNodeMouseUpEventFunction(e) {
-    //     this.drawing = true;
-    //     for (let row of this.nodes) {
-    //         for (let node of row) {
-    //             node.node.removeEventListener("mouseenter", this.boundMouseEnterEventFunctionEnd);
-    //             node.node.removeEventListener("mouseleave", this.nodeMouseLeaveEventFunction);
-    //         }
-    //     }
-    //     this.addEventListeners();
-    //     this.drawing = true;
-    // }
-
-    // nodeMouseEnterEventFunctionEnd(e) {
-    //     e.target.obj.setIcon("img/end.png");
-    //     const new_element = this.end.node.cloneNode(true);
-    //     this.end.node = new_element;
-    //     this.end = e.target.obj;
-    //     this.addEndDragEventListeners();
-    //     this.currentAlgo(this.start, this.end, 0);
-    // }
-
-    // addNodeEnterExitEventListenerEnd(node) {
-    //     node.node.addEventListener("mouseenter", this.boundMouseEnterEventFunctionEnd);
-    //     node.node.addEventListener("mouseleave", this.nodeMouseLeaveEventFunction);
-    // }
-
-    // // Common between start and end
-
-    // nodeMouseLeaveEventFunction(e) {
-    //     e.target.obj.removeIcon();
-    // }
+    resetPath() {
+        for (let node of this.getAllNodes()) {
+            node.obj.removeColor();
+            node.obj.f = 0;
+            node.obj.h = 0;
+            node.obj.g = 0;
+            node.obj.previous = undefined;
+        }
+    }
 
     replaceELement(arr, a, b) {
         let indexN = 0;
@@ -377,5 +267,12 @@ class Grid {
         this.start.setIcon("img/start.png");
         this.end.setIcon("img/end.png");
         this.drawing = true;
+        for (let row of this.nodes) {
+            for (let node of row) {
+                node.g = 0;
+                node.f = 0;
+                node.h = 0;
+            }
+        }
     }
 }

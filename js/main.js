@@ -18,6 +18,14 @@ window.onload = () => {
         else document.getElementsByClassName("cm-item")[0].innerHTML = "Mark as node";
     });
 
+    // for (let i in grid.nodes) {
+    //     let row = grid.nodes[i];
+    //     for (let j in row) {
+    //         let node = row[j];
+    //         if (i % 2 === 0) node.setColour("red");
+    //     }
+    // }
+
     dropdowns = document.getElementsByClassName("dropdown-surface");
     for (let dropdown of dropdowns) {
         let btn = dropdown.getElementsByClassName("dropdown-button")[0];

@@ -9,7 +9,7 @@ div#col {
 }
 
 .obstacle {
-    background-color: black;
+    background-color: black !important;
     border: none !important;
 }
 
