@@ -5,11 +5,21 @@ body {
 }
 
 div#col {
-    border: 1px solid #808080;
+    border: 1px solid #c6c6c6;
+}
+
+div#col.inverted {
+    border: 1px solid #fff;
+    background-color: black;
 }
 
 .obstacle {
     background-color: black !important;
+    border: none !important;
+}
+
+.obstacle.inverted {
+    background-color: white !important;
     border: none !important;
 }
 

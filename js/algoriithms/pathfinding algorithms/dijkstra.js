@@ -8,8 +8,8 @@ function dijkstra(start, end, t) {
     let time = t;
     let current = undefined;
     let wallsurround = false;
-
-    console.log(start, end);
+    grid.drawing = false;
+    drawing = false;
 
     for (let row of ngrid) {
         for (let cell of row) {

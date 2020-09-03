@@ -13,31 +13,48 @@
 
         <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/ui.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="css/ContextMenu.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/dialoge.css" />
 
-        <script src="js/node.js"></script>
-        <script src="js/grid.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script> -->
+
         <script src="js/main.js"></script>
+        <script src="js/components/grid.js"></script>
+        <script src="js/components/node.js"></script>
+
         <script src="Material Components/Snackbar/snackbar.js"></script>
-        <script src="Material Components/ContextMenu/ContextMenu.js"></script>
+        <script src="js/components/dialoge.js"></script>
+
         <script src="js/algoriithms/pathfinding algorithms/retracePath.js"></script>
         <script src="js/algoriithms/pathfinding algorithms/dijkstra.js"></script>
         <script src="js/algoriithms/pathfinding algorithms/astar.js"></script>
+
         <script src="js/algoriithms/maze generation algorithm/Randomized Prim algorithm.js"></script>
         <script src="js/algoriithms/maze generation algorithm/Recursive division.js"></script>
-        <script src="js/algoriithms/maze generation algorithm/sleep.js"></script>
+        <script src="js/algoriithms/maze generation algorithm/maze.js"></script>
         <script src="js/algoriithms/maze generation algorithm/Random Maze.js"></script>
-        <script defer src="js/algoriithms/maze generation algorithm/floodFill.js"></script>
+        <script src="js/algoriithms/maze generation algorithm/floodFill.js"></script>
     </head>
 
     <body>
-        <nav id="context-menu" class="context-menu">
-            <div class="context-menu-items">
-                <div class="cm-item">Mark as wall</div>
-                <div class="cm-item">Move start here</div>
-                <div class="cm-item">Move end here</div>
+        <div class="dialoge">
+            <div class="dialoge-surface">
+                <div class="dialoge-head">
+                    <div class="dialoge-title">Welcome to PathFinding Visualiser</div>
+                    <img src="" class="dialoge-close" />
+                </div>
+                <div class="dialoge-body">This is a short tutorial which will walk you through the features of the project. If you want to dive right in, feel free to press the skip button or press the next button.</div>
+                <div class="dialoge-buttons">
+                    <div class="dialoge-buttons-left">
+                        <div class="dialoge-button-negetive" id="skip">Skip</div>
+                    </div>
+                    <div class="dialoge-buttons-right">
+                        <div class="dialoge-button-negetive" id="back">Previous</div>
+                        <div class="dialoge-button-positive" id="next">Next</div>
+                    </div>
+                </div>
             </div>
-        </nav>
+        </div>
+
         <div class="headder-surface">
             <div class="headder-title-container">
                 <div class="headder-text" draggable="true">Pathfinding Algorithms</div>
@@ -54,6 +71,8 @@
                     <div class="dropdown-list">
                         <div class="dropdown-list-item">A * Algorithm</div>
                         <div class="dropdown-list-item">Dijkstra's Algorithm</div>
+                        <div class="dropdown-list-item">Depth-first search</div>
+                        <div class="dropdown-list-item">Breath-first search</div>
                     </div>
                 </div>
                 <div class="dropdown-surface surface">
@@ -73,8 +92,10 @@
                         <img src="https://icons-for-free.com/iconfiles/png/512/arrow+drop+down+24px-131987942837546678.png" class="dropdown-image" />
                     </div>
                     <div class="dropdown-list">
-                        <div class="dropdown-list-item">Depth First</div>
-                        <div class="dropdown-list-item">Recursive</div>
+                        <div class="dropdown-list-item">Recursive backtracker</div>
+                        <div class="dropdown-list-item">Recursive division</div>
+                        <div class="dropdown-list-item">Random Basic Maze</div>
+                        <div class="dropdown-list-item">Prim's Randomized Maze</div>
                     </div>
                 </div>
                 <div class="button-surface surface" id="start">
@@ -83,8 +104,15 @@
                 <div class="button-surface surface" id="mazeBuild">
                     <div class="button-text">Build Maze</div>
                 </div>
+                <div class="button-surface surface" id="clearPath">
+                    <div class="button-text">Clear Path</div>
+                </div>
+                <div class="button-surface surface" id="clearBoard">
+                    <div class="button-text">Clear Board</div>
+                </div>
             </div>
         </div>
+        <div class="person"></div>
         <div class="container">
             <div class="root" id="root"></div>
         </div>

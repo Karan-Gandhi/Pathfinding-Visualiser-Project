@@ -1,3 +1,5 @@
+let drawing = true;
+
 class Grid {
     constructor(rows, cols, root, nodeWidth, nodeHeight) {
         this.rows = rows;
@@ -33,7 +35,9 @@ class Grid {
         this.end.node.style.backgroundSize = "calc(100% - 5px)";
         this.end.end = true;
 
-        this.targets = [this.start, this.end];
+        this.place = null;
+
+        this.targets = [this.start, this.place, this.end];
 
         this.addAllEventListeners();
         this.addStartDragEventListeners();
@@ -50,6 +54,10 @@ class Grid {
 
     setAlgo(algo) {
         this.currentAlgo = algo;
+    }
+
+    addStop() {
+        // this.place = this.nodes[Math.floor(rows / 2)][Math.floor(cols / 5)]
     }
 
     addAllEventListeners() {
@@ -117,15 +125,25 @@ class Grid {
     }
 
     startNeighbourEnterListener(e) {
-        let pstart = this.pgrid.start;
-        this.obj.setIcon("img/start.png");
-        this.pgrid.start.removeIcon();
-        this.removeEventListener('mousedown', this.startNodeMouseDownEventFunction);
-        for (let node of this.pgrid.getAllNodes()) node.removeEventListener('mouseup', this.pgrid.removeStartNeighboursEnterExitListener);
-        this.pgrid.start = this.obj;
-        this.pgrid.targets[0] = this.pgrid.start;
-        this.pgrid.addStartDragEventListeners();
-        this.pgrid.currentAlgo(this.pgrid.start, this.pgrid.end, 0);
+        if (!this.obj.end && drawing) {
+            let pstart = this.pgrid.start;
+            if (pstart.wasWall) {
+                pstart.setWall();
+                pstart.wasWall = false;
+            }
+            this.obj.setIcon("img/start.png");
+            this.pgrid.start.removeIcon();
+            this.removeEventListener('mousedown', this.startNodeMouseDownEventFunction);
+            for (let node of this.pgrid.getAllNodes()) node.removeEventListener('mouseup', this.pgrid.removeStartNeighboursEnterExitListener);
+            this.pgrid.start = this.obj;
+            if (this.obj.obstacle) {
+                this.obj.removeWall();
+                this.obj.wasWall = true;
+            }
+            this.pgrid.targets[0] = this.pgrid.start;
+            this.pgrid.addStartDragEventListeners();
+            if (this.pgrid.currentAlgo) this.pgrid.currentAlgo(this.pgrid.start, this.pgrid.end, 0);
+        }
     }
 
     removeStartNeighboursEnterExitListener(e) {
@@ -161,15 +179,26 @@ class Grid {
     }
 
     endNeighbourEnterListener(e) {
-        let pend = this.pgrid.end;
-        this.obj.setIcon("img/end.png");
-        this.pgrid.end.removeIcon();
-        this.removeEventListener('mousedown', this.endNodeMouseDownEventFunction);
-        for (let node of this.pgrid.getAllNodes()) node.removeEventListener('mouseup', this.pgrid.removeEndNeighboursEnterExitListener);
-        this.pgrid.end = this.obj;
-        this.pgrid.targets[1] = this.pgrid.end;
-        this.pgrid.addEndDragEventListeners();
-        this.pgrid.currentAlgo(this.pgrid.start, this.pgrid.end, 0);
+        console.log(this.pgrid.drawing)
+        if (!this.obj.start && drawing) {
+            let pend = this.pgrid.end;
+            if (pend.wasWall) {
+                pend.setWall();
+                pend.wasWall = false;
+            }
+            this.obj.setIcon("img/end.png");
+            this.pgrid.end.removeIcon();
+            this.removeEventListener('mousedown', this.endNodeMouseDownEventFunction);
+            for (let node of this.pgrid.getAllNodes()) node.removeEventListener('mouseup', this.pgrid.removeEndNeighboursEnterExitListener);
+            this.pgrid.end = this.obj;
+            if (this.obj.obstacle) {
+                this.obj.removeWall();
+                this.obj.wasWall = true;
+            }
+            this.pgrid.targets[1] = this.pgrid.end;
+            this.pgrid.addEndDragEventListeners();
+            if (this.pgrid.currentAlgo) this.pgrid.currentAlgo(this.pgrid.start, this.pgrid.end, 0);
+        }
     }
 
     removeEndNeighboursEnterExitListener(e) {
@@ -186,6 +215,7 @@ class Grid {
             node.obj.h = 0;
             node.obj.g = 0;
             node.obj.previous = undefined;
+            node.obj.visited = false;
         }
     }
 
@@ -267,12 +297,33 @@ class Grid {
         this.start.setIcon("img/start.png");
         this.end.setIcon("img/end.png");
         this.drawing = true;
+        drawing = true
+        // for (let row of this.nodes) {
+        //     for (let node of row) {
+        //         // node.g = 0;
+        //         // node.f = 0;
+        //         // node.h = 0;
+        //     }
+        // }
+    }
+
+    invert() {
         for (let row of this.nodes) {
             for (let node of row) {
-                node.g = 0;
-                node.f = 0;
-                node.h = 0;
+                if (!node.start && !node.end) node.invert();
             }
         }
+    }
+
+    getCurrentNode(x, y) {
+        for (let row of this.nodes) {
+            for (let node of row) {
+                let [cx, cy] = node.getAbsolutePosition();
+                if (cx < x && cx + this.nodeWidth > x && cy < y && cy + this.nodeHeight > y) {
+                    return node;
+                }
+            }
+        }
+        return null;
     }
 }

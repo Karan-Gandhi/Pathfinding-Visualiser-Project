@@ -2,21 +2,10 @@ let grid;
 let nodew = 30;
 let dropdowns = [];
 let contextMenu;
+let person;
 
 window.onload = () => {
     grid = new Grid(Math.floor(window.innerHeight / nodew) - 6, Math.floor(window.innerWidth / nodew), document.getElementById("root"), nodew, nodew);
-    contextMenu = new ContextMenu(document.getElementById("context-menu"), grid.getAllNodes(), [
-        (e) => {
-            let node = grid.findNode(e.target);
-            node.setObstacle();
-        },
-        (e) => {},
-        (e) => {},
-    ], (e) => {
-        let node = grid.findNode(e.target);
-        if (node.obstacle) document.getElementsByClassName("cm-item")[0].innerHTML = "Mark as wall";
-        else document.getElementsByClassName("cm-item")[0].innerHTML = "Mark as node";
-    });
 
     // for (let i in grid.nodes) {
     //     let row = grid.nodes[i];

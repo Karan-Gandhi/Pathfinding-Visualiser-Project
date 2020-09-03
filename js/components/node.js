@@ -54,10 +54,10 @@ class Node {
         if (this.obstacle) {
             this.node.classList.toggle("obstacle");
         }
-        // this.root.innerHTML = this.y;
         this.root.append(this.node);
         this.start = false;
         this.end = false;
+        this.grid = grid;
     }
 
     /**
@@ -192,12 +192,12 @@ class Node {
     }
 
     animate() {
-        this.node.style.transition = "0s";
-        this.node.style.transform = "scale(0)";
-        setTimeout(() => {
-            this.node.style.transition = "0.4s";
-            this.node.style.transform = "scale(1)";            
-        }, 2);
+        // this.node.style.transition = "0s";
+        // this.node.style.transform = "scale(0)";
+        // setTimeout(() => {
+        //     this.node.style.transition = "0.4s";
+        //     this.node.style.transform = "scale(1)";            
+        // }, 2);
         // this.node.style.transform = "scale(0.1)";
         // setTimeout(() => (this.node.style.transform = "scale(1)"), 400);
         // let i = 0;
@@ -216,6 +216,7 @@ class Node {
         setTimeout(() => {
             this.node.style.transition = "0.4s";
             this.node.style.transform = "scale(1)";            
+            this.node.style.transition = "0s";
         }, 5);
     }
 
@@ -256,5 +257,22 @@ class Node {
             s = y + 2 > cols && !g[x][y + 2].visited;
 
         return n && s && e && w;
+    }
+
+    getAbsolutePosition() {
+        let obj = this.node;
+        let x = obj.offsetLeft;
+        let y = obj.offsetTop;
+        while (obj.offsetParent) {
+            x = x + obj.offsetParent.offsetLeft;
+            y = y + obj.offsetParent.offsetTop;
+            if (obj == document.getElementsByTagName("body")[0]) break;
+            else obj = obj.offsetParent;
+        }
+        return [x, y];
+    }
+
+    invert() {
+        this.node.classList.toggle("inverted");
     }
 }
