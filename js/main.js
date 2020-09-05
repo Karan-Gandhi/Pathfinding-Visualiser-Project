@@ -50,7 +50,7 @@ window.onload = () => {
 
         if (time === "Slow") t = 50;
         else if (time === "Medium") t = 25;
-        else if (time === "Fast") t = 0;
+        else if (time === "Fast") t = 20;
 
         if (algo === "A * Algorithm") oc(t);
         else if (algo === "Dijkstra's Algorithm") ds(t);

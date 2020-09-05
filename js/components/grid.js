@@ -35,9 +35,9 @@ class Grid {
         this.end.node.style.backgroundSize = "calc(100% - 5px)";
         this.end.end = true;
 
-        this.place = null;
+        // this.place = null;
 
-        this.targets = [this.start, this.place, this.end];
+        this.targets = [this.start, this.end];
 
         this.addAllEventListeners();
         this.addStartDragEventListeners();
@@ -214,8 +214,8 @@ class Grid {
             node.obj.f = 0;
             node.obj.h = 0;
             node.obj.g = 0;
-            node.obj.previous = undefined;
             node.obj.visited = false;
+            node.obj.previous = null;
         }
     }
 
