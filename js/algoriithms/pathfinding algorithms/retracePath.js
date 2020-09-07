@@ -22,6 +22,7 @@ function retracePath(lastNode, animationTime) {
     // Animate the path
     if (animationTime !== 0) {
         let i = 0;
+        console.log(path.length);
         const interval = setInterval(() => {
             // if there is no other node left
             if (i === path.length) {
@@ -36,14 +37,20 @@ function retracePath(lastNode, animationTime) {
                 if (path[i + 1].y < path[i].y) path[i].rotate(-90);
             }
             // remove the icon of the previous node and set the icon of the current node
+            // path[i].node.style.animation = "0.4s nodeAnimation";
             if (i > 0) path[i - 1].removeIcon();
-            path[i].setColour("#ffeb3b");
+            path[i].setColour("#ffeb3b", true);
             path[i].setIcon("img/start.png");
+            // path[i].node.style.animation = "1s pathAnimation";
+            // setTimeout(() => {
+            //     path[i].node.style.animation = "";
+            // }, 1100);
             grid.completed();
             i++;
         }, animationTime);
     } else {
         let i = 0;
+        console.log(path.length);
         while(true) {
             // if there is no other node left
             if (i === path.length) {
@@ -58,7 +65,7 @@ function retracePath(lastNode, animationTime) {
             }
             // remove the icon of the previous node and set the icon of the current node
             if (i > 0) path[i - 1].removeIcon();
-            path[i].setColour("#ffeb3b");
+            path[i].setColour("#ffeb3b", true);
             path[i].setIcon("img/start.png");
             i++;
             grid.completed();

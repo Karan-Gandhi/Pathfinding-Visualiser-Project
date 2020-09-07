@@ -10,6 +10,7 @@ function dijkstra(start, end, t) {
     let wallsurround = false;
     grid.drawing = false;
     drawing = false;
+    grid.removeEventListeners();
 
     for (let row of ngrid) {
         for (let cell of row) {
@@ -117,7 +118,7 @@ function dijkstra(start, end, t) {
             }
 
             if (!wallsurround) {
-                current.setColour("#3f51b5");
+                current.setColour("#3f51b5", true);
             }
         }
     }

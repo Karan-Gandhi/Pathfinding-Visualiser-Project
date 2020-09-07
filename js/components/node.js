@@ -155,10 +155,16 @@ class Node {
      * @param {String} color
      * @memberof Node
      */
-    setColour(color) {
+    setColour(color, dontAnimate) {
         this.node.style.backgroundColor = color;
         // this.animate();
         this.node.style.border = "none";
+        if (!dontAnimate) {
+            this.node.style.animation = "1s visitedNodeAnimation";
+            setTimeout(() => {
+                this.node.style.animation = "";
+            },1100)
+        }
     }
 
     removeColor() {
@@ -181,7 +187,7 @@ class Node {
     }
 
     setObstacle() {
-        if (this.node.pgrid.drawing && !this.start && !this.end) {
+        if (drawing && !this.start && !this.end) {
             if (!this.obstacle) {
                 this.obstacle = true;
             } else {
@@ -210,14 +216,7 @@ class Node {
 
     setWall() {
         this.obstacle = true;
-        this.node.style.transition = "0s";
-        this.node.style.transform = "scale(0)";
         this.node.classList.add("obstacle");
-        setTimeout(() => {
-            this.node.style.transition = "0.4s";
-            this.node.style.transform = "scale(1)";            
-            this.node.style.transition = "0s";
-        }, 5);
     }
 
     removeWall() {

@@ -51,19 +51,13 @@ window.onload = () => {
         if (time === "Slow") t = 50;
         else if (time === "Medium") t = 25;
         else if (time === "Fast") t = 20;
+        else t = 0;
 
-        if (algo === "A * Algorithm") oc(t);
-        else if (algo === "Dijkstra's Algorithm") ds(t);
+        grid.addNodeN();
+        if (algo === "A * Algorithm") astar(grid.start, grid.end, t);
+        else if (algo === "Dijkstra's Algorithm") dijkstra(grid.start, grid.end, t);
+        else if (algo === "Depth-first search") dfs(grid.start, grid.end, t);
+        else if (algo === "Breath-first search") bfs(grid.start, grid.end, t);
         else new Snackbar("Please select an Pathfinding algorithm", [], [], SNCAKBAR_TIME_MEDIUM).build().show();
     });
 };
-
-function oc(t) {
-    grid.addNodeN();
-    astar(grid.start, grid.end, t);
-}
-
-function ds(t) {
-    grid.addNodeN();
-    dijkstra(grid.start, grid.end, t);
-}
