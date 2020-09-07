@@ -60,4 +60,22 @@ window.onload = () => {
         else if (algo === "Breath-first search") bfs(grid.start, grid.end, t);
         else new Snackbar("Please select an Pathfinding algorithm", [], [], SNCAKBAR_TIME_MEDIUM).build().show();
     });
+
+    document.getElementById("mazeBuild").addEventListener('click', () => {
+        const algo = document.getElementById("maze").innerHTML;
+
+        grid.clearBoard();
+        if (algo === "Recursive backtracker") floodFill(10);
+        else if (algo === "Recursive division") recursiveDivisionMaze(2, grid.rows - 3, 2, grid.cols - 3, "horizontal", false, 25);
+        else if (algo === "Random Basic Maze") randomMaze(10);
+        else new Snackbar("Please select an Maze Generation algorithm", [], [], SNCAKBAR_TIME_MEDIUM).build().show();
+    });
+
+    document.getElementById("clearPath").addEventListener("click", () => {
+        grid.resetPath();
+    })
+
+    document.getElementById("clearBoard").addEventListener('click', () => {
+        grid.clearBoard();
+    })
 };

@@ -344,6 +344,7 @@ class Grid {
         for (let row of this.nodes) {
             for (let node of row) {
                 node.removeWall();
+                node.removeColor();
             }
         }
     }
