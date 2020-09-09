@@ -85,7 +85,7 @@ class Grid {
             for (let i = 0; i < this.nodes.length; i++) {
                 for (let x = 0; x < this.nodes[i].length; x++) {
                     if (!this.nodes[i][x].start && !this.nodes[i][x].end) {
-                        this.nodes[i][x].node.addEventListener("mouseover", this.setAsObstacle);
+                        this.nodes[i][x].node.addEventListener("mouseenter", this.setAsObstacle);
                     }
                 }
             }
@@ -96,7 +96,7 @@ class Grid {
         for (let i = 0; i < this.nodes.length; i++) {
             for (let x = 0; x < this.nodes[i].length; x++) {
                 if (!this.nodes[i][x].start && !this.nodes[i][x].end) {
-                    this.nodes[i][x].node.removeEventListener("mouseover", this.setAsObstacle);
+                    this.nodes[i][x].node.removeEventListener("mouseenter", this.setAsObstacle);
                 }
             }
         }

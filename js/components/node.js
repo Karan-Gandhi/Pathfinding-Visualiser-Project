@@ -190,6 +190,8 @@ class Node {
         if (drawing && !this.start && !this.end) {
             if (!this.obstacle) {
                 this.obstacle = true;
+                // let i = setInterval(() => this.obstacle = true);
+                // setTimeout(() => clearInterval(i), 1000);
             } else {
                 this.obstacle = false;
             }
