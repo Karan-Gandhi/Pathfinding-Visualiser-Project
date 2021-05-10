@@ -69,7 +69,7 @@ window.onload = () => {
         if (algo === "Recursive backtracker") floodFill(10);
         else if (algo === "Recursive division") recursiveDivisionMaze(2, grid.rows - 3, 2, grid.cols - 3, "horizontal", false, 25);
         else if (algo === "Recursive division (Skew X)") recursiveDivisionMazeSkewX(2, grid.rows - 3, 2, grid.cols - 3, "horizontal", false, 25);
-        else if (algo === "Recursive division (Skew Y)") recursiveDivisionMazeSkewY(2, grid.rows - 3, 2, grid.cols - 3, "horizontal", false, 25);
+        else if (algo === "Recursive division (Skew Y)") recursiveDivisionMazeSkewY(2, grid.rows - 3, 2, grid.cols - 3, "vertical", false, 25);
         else if (algo === "Random Basic Maze") randomMaze(10);
         else new Snackbar("Please select an Maze Generation algorithm", [], [], SNCAKBAR_TIME_MEDIUM).build().show();
     });

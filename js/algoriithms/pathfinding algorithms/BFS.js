@@ -8,7 +8,7 @@ async function bfs(start, end, t) {
 	for (let row of grid.nodes) {
 		for (let node of row) {
 			node.previous = null;
-			node.visited = null;
+			node.visited = false;
 			node.removeColor();
 		}
 	}

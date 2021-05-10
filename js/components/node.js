@@ -189,13 +189,15 @@ class Node {
     setObstacle() {
         if (drawing && !this.start && !this.end) {
             if (!this.obstacle) {
-                this.obstacle = true;
+                // this.obstacle = true;
+                this.setWall();
                 // let i = setInterval(() => this.obstacle = true);
                 // setTimeout(() => clearInterval(i), 1000);
             } else {
-                this.obstacle = false;
+                this.removeWall();
+                // this.obstacle = false;
             }
-            this.node.classList.toggle("obstacle");
+            // this.node.classList.toggle("obstacle");
         }
     }
 
