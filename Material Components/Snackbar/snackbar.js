@@ -8,7 +8,7 @@ const SNACKBAR_TIME_SHORT = 2000;
 
 let elt = document.createElement("link");
 elt.className = "snackbar-stylsheet";
-elt.href = "./Material components/snackbar/snackbar.css";
+elt.href = "./Material components/Snackbar/snackbar.css";
 elt.rel = "stylesheet";
 window.addEventListener("DOMContentLoaded", () => document.head.append(elt));
 
